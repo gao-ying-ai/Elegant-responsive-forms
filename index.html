@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>响应式表格</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #canvas {
+            width: 100vw;
+            height: 100vh;
+            /* z-index: 999; */
+            /* position: relative; */
+
+
+        }
+
+        body {
+            min-height: 100vh;
+            background: url(images/01.png) center / cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .table {
+            width: 82vw;
+            height: 90vh;
+            background-color: #fff5;
+            box-shadow: 0 8px 16px #0005;
+            border-radius: 16px;
+            position: absolute;
+            opacity: 0.9;
+            /* top: 0;
+            left: 0; */
+
+
+
+
+        }
+
+        .header {
+            width: 100%;
+            height: 10%;
+            background-color: #fff4;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+        }
+
+        .header .input-group {
+            width: 35%;
+            height: 50%;
+            background-color: #fff5;
+            padding: 0 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: .2s;
+
+        }
+
+        .header .input-group:hover {
+            width: 45%;
+            background-color: #fff8;
+            box-shadow: 0 5px 40px #0002;
+
+        }
+
+        .header .input-group img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .header .input-group input {
+            width: 100%;
+            background-color: transparent;
+            border: none;
+            outline: none;
+        }
+
+        .shell {
+            width: 95%;
+            height: 86%;
+            background-color: #fffb;
+            margin: 8px auto;
+            border-radius: 10px;
+            overflow: auto;
+            overflow: overlay;
+
+        }
+
+        /* 设置滚动条样式 */
+        .shell::-webkit-scrollbar {
+            width: 0px;
+            height: 10px;
+        }
+
+        table {
+            width: 100%;
+
+        }
+
+        td img {
+            width: 36px;
+            height: 36px;
+            margin-right: 10px;
+            border-radius: 50%;
+            vertical-align: middle;
+
+        }
+
+        table,
+        th,
+        td {
+            border-collapse: collapse;
+            padding: 20px;
+            text-align: left;
+        }
+
+        thead th {
+            position: sticky;
+            top: 0;
+            left: 0;
+            background-color: #dee0ddfe;
+            cursor: pointer;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #0000000b;
+        }
+
+        tbody tr:hover {
+            background-color: #fff6 !important;
+        }
+
+        .button {
+            padding: 5px 0;
+            border-radius: 40px;
+            text-align: center;
+        }
+
+        tr:nth-child(4n) .button {
+            background-color: #86e49d;
+            color: #006b21;
+        }
+
+        tr:nth-child(4n-1) .button {
+            background-color: #f5ec9a;
+            color: #a49b39;
+        }
+
+        tr:nth-child(4n+1) .button {
+            background-color: #fba5a5;
+            color: #bb4e4e;
+        }
+
+        tr:nth-child(4n+2) .button {
+            background-color: #a5e3f4;
+            color: #407ea1;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <main class="table">
+        <section class="header">
+            <h1>高兴</h1>
+            <div class="input-group">
+                <input type="search" placeholder="Search Data...">
+                <img src="./images/Search.png" alt="">
+            </div>
+        </section>
+        <section class="shell">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Location</th>
+                        <th>Last contact date</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>001</td>
+                        <td><img src="./images/fuguang.png" alt="">扶光</td>
+                        <td>萝萝山</td>
+                        <td>2024-10-15</td>
+                        <td>
+                            <p class="button">发消息</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>002</td>
+                        <td><img src="./images/guhua.png" alt="">顾话</td>
+                        <td>桃源乡</td>
+                        <td>2024-10-15</td>
+                        <td>
+                            <p class="button">发消息</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>003</td>
+                        <td><img src="./images/huzi.png" alt="">虎子</td>
+                        <td>桃源乡</td>
+                        <td>2024-10-15</td>
+                        <td>
+                            <p class="button">发消息</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>004</td>
+                        <td><img src="./images/jingqiang.png" alt="">荆蔷</td>
+                        <td>玉山</td>
+                        <td>2024-10-15</td>
+                        <td>
+                            <p class="button">发消息</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>005</td>
+                        <td><img src="./images/jinhui.png" alt="">荆茴</td>
+                        <td>桃源乡</td>
+                        <td>2024-10-15</td>
+                        <td>
+                            <p class="button">发消息</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>006</td>
+                        <td><img src="./images/laiyuanshan.png" alt="">赖远山</td>
+                        <td>桃源乡</td>
+                        <td>2024-10-15</td>
+                        <td>
+                            <p class="button">发消息</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>007</td>
+                        <td><img src="./images/suman.png" alt="">舒蔓</td>
+                        <td>桃源乡</td>
+                        <td>2024-10-15</td>
+                        <td>
+                            <p class="button">发消息</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>008</td>
+                        <td><img src="./images/xiangzhang.png" alt="">乡长</td>
+                        <td>桃源乡</td>
+                        <td>2024-10-15</td>
+                        <td>
+                            <p class="button">发消息</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>009</td>
+                        <td><img src="./images/xiefuzi.png" alt="">谢夫子</td>
+                        <td>桃源乡</td>
+                        <td>2024-10-15</td>
+                        <td>
+                            <p class="button">发消息</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>010</td>
+                        <td><img src="./images/yaoer.png" alt="">瑶儿</td>
+                        <td>桃源乡</td>
+                        <td>2024-10-15</td>
+                        <td>
+                            <p class="button">发消息</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>011</td>
+                        <td><img src="./images/yingniang.png" alt="">瑛娘</td>
+                        <td>桃源乡</td>
+                        <td>2024-10-15</td>
+                        <td>
+                            <p class="button">发消息</p>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+<script>
+    // 获取屏幕宽高
+    const windowWidth = document.body.offsetWidth
+    const windowHeight = document.body.offsetHeight
+
+    const canvasDom = document.getElementById("canvas")
+    canvasDom.width = windowWidth
+    canvasDom.height = windowHeight
+
+    const ctx = canvasDom.getContext("2d")
+
+
+
+
+    function random(a, b) {
+        return Math.random() * (b - a) + a
+    }
+
+    //花瓣
+    class Petals {
+        constructor(data) {
+            //宽高
+            this.width = data.width
+            this.height = data.height
+            //速度
+            this.speedX = data.speedX
+            this.speedY = data.speedY
+            //位置
+            this.x = data.x
+            this.y = data.y
+            //图片
+            this.img = new Image()
+            this.img.src = data.src
+
+        }
+        draw(index) {
+            this.y += this.speedY
+            if (this.y > windowHeight) {
+                petalArr.splice(index, 1)
+            }
+
+
+            ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
+        }
+    }
+    const petalArr = []
+
+    function rander() {
+        ctx.clearRect(0, 0, windowWidth, windowHeight)
+        petalArr.forEach((petal, index) => {
+            petal.draw(index)
+
+        })
+    }
+
+    function add() {
+        const width = random(10, 20)
+        petalArr.push(new Petals({
+            width: width,
+            height: 186 * width / 150,
+
+            src: './images/flower.png',
+            speedX: random(0.1, 1),
+            speedY: random(0.5, 2.5),
+            x: random(0, windowWidth),
+            y: 0
+        }))
+    }
+    setInterval(rander, 60)
+    setInterval(add, 300)
+
+</script>
+
+</html>
